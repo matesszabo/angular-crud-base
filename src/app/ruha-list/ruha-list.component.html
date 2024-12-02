@@ -1,0 +1,88 @@
+<!--<mat-card>
+  <h2>Ruházati termékek</h2>
+  <table mat-table [dataSource]="ruhak">
+    <ng-container matColumnDef="nev">
+      <th mat-header-cell *matHeaderCellDef>Név</th>
+      <td mat-cell *matCellDef="let ruha">{{ruha.nev}}</td>
+    </ng-container>
+    <ng-container matColumnDef="meret">
+      <th mat-header-cell *matHeaderCellDef>Méret</th>
+      <td mat-cell *matCellDef="let ruha">{{ruha.meret}}</td>
+    </ng-container>
+    <ng-container matColumnDef="szin">
+      <th mat-header-cell *matHeaderCellDef>Szín</th>
+      <td mat-cell *matCellDef="let ruha">{{ruha.szin}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['nev', 'meret', 'szin']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['nev', 'meret', 'szin']"></tr>
+  </table>
+</mat-card>-->
+
+<mat-card class="ruha-container">
+  <h2>Ruha Kezelés</h2>
+
+  <form (submit)="addOrUpdateRuha()" class="ruha-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Név</mat-label>
+      <input matInput [(ngModel)]="newRuha.nev" name="nev" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Méret</mat-label>
+      <input matInput [(ngModel)]="newRuha.meret" name="meret" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Szín</mat-label>
+      <input matInput [(ngModel)]="newRuha.szin" name="szin" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Típus</mat-label>
+      <input matInput [(ngModel)]="newRuha.tipus" name="tipus" required />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">
+      {{ isEditing ? 'Mentés' : 'Hozzáadás' }}
+    </button>
+    <button mat-raised-button color="warn" type="button" (click)="resetForm()" *ngIf="isEditing">Mégse</button>
+  </form>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="nev">
+      <th mat-header-cell *matHeaderCellDef> Név </th>
+      <td mat-cell *matCellDef="let ruha"> {{ ruha.nev }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="meret">
+      <th mat-header-cell *matHeaderCellDef> Méret </th>
+      <td mat-cell *matCellDef="let ruha"> {{ ruha.meret }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="szin">
+      <th mat-header-cell *matHeaderCellDef> Szín </th>
+      <td mat-cell *matCellDef="let ruha"> {{ ruha.szin }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipus">
+      <th mat-header-cell *matHeaderCellDef> Típus </th>
+      <td mat-cell *matCellDef="let ruha"> {{ ruha.tipus }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Műveletek </th>
+      <td mat-cell *matCellDef="let ruha">
+        <button mat-icon-button color="accent" (click)="editRuha(ruha)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteRuha(ruha.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
+
